@@ -353,7 +353,8 @@ function highlighted(r) {
 
 function rankList(r) {
   const max = Math.max(...r.ranking.map(x => x.total), 1);
-  return h("ul", { class: "rank" }, r.ranking.slice(0, 9).map((x, i) =>
+  const rows = [r.ranking[0], ...r.ranking.slice(1).sort((a, b) => b.matched - a.matched || b.score - a.score)];
+  return h("ul", { class: "rank" }, rows.slice(0, 9).map((x, i) =>
     h("li", { class: i === 0 && r.status !== "inconclusive" ? "win" : "" },
       h("span", { class: "nm" }, `${x.label}`),
       h("span", { class: "ct" }, `${x.matched} of ${x.total}`),

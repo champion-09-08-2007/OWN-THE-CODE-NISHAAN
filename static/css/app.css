@@ -452,7 +452,7 @@ details.new-exam[open] summary { margin-bottom: 16px; }
 .strength { font-size: 52px; font-weight: 740; font-stretch: 78%; line-height: 1; font-feature-settings: "tnum" 1; }
 .strength small { font-size: 22px; font-weight: 600; margin-left: 4px; }
 .odds { color: var(--graphite); font-size: 17px; max-width: 340px; }
-.odds b { color: var(--ink); }
+.odds b { color: var(--ink); white-space: nowrap; }
 .odds sup { font-size: 17px; line-height: 0; vertical-align: 0.55em; }
 
 .v-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border-top: 1px solid var(--rule); }

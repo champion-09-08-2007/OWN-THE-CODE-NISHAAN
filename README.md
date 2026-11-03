@@ -24,6 +24,12 @@ To use a phone, scan the QR code on the Trace screen. The phone and laptop must 
    Keep the same values while tracing. Copies printed with one setting cannot be traced with another.
 4. To start clean, stop the app and delete the `var` folder.
 
+## Demo kit
+
+Issue tab, **Demo kit**. It downloads a zip built from your own exam: 6 booklets to print, 3 leak photos (full page, torn piece, crumpled), 2 retyped guess papers, a page that is not this paper, a one-page judge handout, and `PRESENTER-NOTES.txt` listing what each file should trace to. Drag any file onto the Trace screen.
+
+The kit only matches the exam it came from. After a new exam, or a run with a different number of booklets per centre, download it again and reprint.
+
 ## Demo script
 
 **Act 1, photo leak (mirrors NEET 2024).** Hand a judge a random printed booklet. Ask them to cover the booklet number with a thumb, tear or crumple it, and photograph it with the phone page. The dashboard jumps to the verdict: booklet number, centre, room, seat, and the custody chain lights up from press to seat. Open **Compare**, blink two booklets: no visible difference. Switch to **Difference** to show the fingerprint.

@@ -36,7 +36,8 @@ export function render(App) {
       run ? h("div", { class: "runline" }, `Run ${run.id}, ${run.total} booklets, issued ${stamp(run.created_at)}`) : null,
       h("div", { class: "dl" },
         h("a", { href: "/files/print.pdf", target: "_blank", rel: "noopener" }, "Print-ready booklets", h("span", {}, `${st.copies_total * st.exam.pages} pages`)),
-        h("a", { href: "/files/answer-keys.csv" }, "Answer keys by centre", h("span", {}, "CSV")))),
+        h("a", { href: "/files/answer-keys.csv" }, "Answer keys by centre", h("span", {}, "CSV")),
+        demoKitLink())),
     h("div", { class: "panel" },
       h("h2", {}, "Soft copies"),
       h("div", { class: "holders" },
@@ -47,6 +48,36 @@ export function render(App) {
 
   const right = h("div", {}, h("h2", { style: "margin-bottom:16px" }, "Booklet register"), register(App));
   root.replaceChildren(h("div", { class: "cols" }, left, right));
+}
+
+function demoKitLink() {
+  const note = h("span", {}, "ZIP");
+  const a = h("a", { href: "/files/demo-kit.zip" }, "Demo kit", note);
+  a.addEventListener("click", async (e) => {
+    e.preventDefault();
+    if (a.dataset.busy) return;
+    a.dataset.busy = "1";
+    note.textContent = "Building, about 20 s";
+    try {
+      const res = await fetch("/files/demo-kit.zip");
+      if (!res.ok) throw new Error(res.status);
+      const blob = await res.blob();
+      const name = (res.headers.get("Content-Disposition") || "").match(/filename="([^"]+)"/)?.[1] || "nishaan-demo-kit.zip";
+      const url = URL.createObjectURL(blob);
+      const dl = h("a", { href: url, download: name });
+      document.body.append(dl);
+      dl.click();
+      dl.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      note.textContent = "Downloaded";
+    } catch (err) {
+      note.textContent = "Failed, try again";
+    } finally {
+      delete a.dataset.busy;
+      setTimeout(() => { note.textContent = "ZIP"; }, 4000);
+    }
+  });
+  return a;
 }
 
 function register(App) {

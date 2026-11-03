@@ -6,6 +6,7 @@ import io
 import json
 import os
 import socket
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -18,6 +19,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from starlette.concurrency import run_in_threadpool
 
+from . import demokit
 from .bot import TelegramBot
 from .service import Nishaan
 
@@ -63,6 +65,14 @@ async def lifespan(app: FastAPI):
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     if token:
         TelegramBot(token, svc).start()
+    port = PORT
+    if "--port" in sys.argv:
+        try:
+            port = int(sys.argv[sys.argv.index("--port") + 1])
+        except (IndexError, ValueError):
+            pass
+    phone = os.environ.get("NISHAAN_PUBLIC_URL", f"http://{lan_ip()}:{port}").rstrip("/") + "/m"
+    print(f"\n  Nishaan is ready\n  Open on this laptop:  http://localhost:{port}\n  Phone page:           {phone}\n", flush=True)
     yield
 
 
@@ -197,6 +207,14 @@ async def softcopy_file(hid: str):
     pdf = await run_in_threadpool(svc.softcopy_pdf, hid)
     return Response(pdf, media_type="application/pdf",
                     headers={"Content-Disposition": f'inline; filename="softcopy-{hid}.pdf"'})
+
+
+@app.get("/files/demo-kit.zip")
+async def demo_kit():
+    data = await run_in_threadpool(demokit.cached, svc)
+    run = svc.store.latest_run(svc.exam["id"])
+    return Response(data, media_type="application/zip",
+                    headers={"Content-Disposition": f'attachment; filename="nishaan-demo-kit-run{run["id"]}.zip"'})
 
 
 @app.get("/files/answer-keys.csv")
