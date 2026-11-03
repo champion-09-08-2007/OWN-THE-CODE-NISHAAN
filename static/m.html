@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e4ebe6">
+  <title>Nishaan</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="icon" href="data:,">
+  <style>
+    body { min-height: 100dvh; display: flex; flex-direction: column; }
+    .m-head { display: flex; align-items: center; gap: 12px; padding: 18px 20px; }
+    .m-head svg { width: 38px; height: 38px; }
+    .m-head b { font-size: 25px; font-weight: 760; font-stretch: 118%; }
+    .m-sheet {
+      flex: 1; margin: 0 12px 12px; padding: 26px 22px 30px; background: var(--sheet);
+      border: 1px solid var(--rule-strong); border-radius: 10px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column;
+    }
+    .m-sheet section { display: none; flex: 1; flex-direction: column; gap: 16px; }
+    .m-sheet section.on { display: flex; }
+    .shoot {
+      flex: 1; min-height: 300px; display: grid; place-items: center; align-content: center; gap: 18px;
+      border: 2px dashed var(--rule-strong); border-radius: 12px; text-align: center; cursor: pointer;
+      background: repeating-linear-gradient(135deg, #f6f8f6 0 14px, #f1f4f1 14px 28px);
+      font-size: 24px; font-weight: 660; color: var(--ink);
+    }
+    .shoot svg { width: 72px; height: 72px; color: var(--ballpoint); }
+    .shoot input, .pick input { display: none; }
+    .pick { width: 100%; }
+    .m-busy { flex: 1; display: grid; place-items: center; align-content: center; gap: 18px; font-size: 22px; color: var(--graphite); }
+    .m-busy svg { width: 56px; height: 56px; animation: spin 1.6s linear infinite; }
+    .m-done { align-items: flex-start; }
+    .m-done .stamp { width: 150px; height: 150px; align-self: center; }
+    .m-done .serial { font-size: 76px; }
+    .m-done .facts { gap: 8px 26px; }
+    .m-done .btn { width: 100%; margin-top: auto; }
+    .m-msg { font-size: 20px; color: var(--graphite); }
+    .m-preview { width: 100%; max-height: 220px; object-fit: contain; border: 1px solid var(--rule); border-radius: 6px; background: #eee; }
+  </style>
+</head>
+<body>
+  <header class="m-head"><span id="mark"></span><b>Nishaan</b></header>
+  <main class="m-sheet">
+    <section id="idle" class="on">
+      <label class="shoot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.3l1.4-2h5.6l1.4 2h2.3A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+        Photograph the leak
+        <input type="file" accept="image/*" capture="environment" id="cam">
+      </label>
+      <label class="btn pick">Choose from gallery<input type="file" accept="image/*" id="gal"></label>
+    </section>
+    <section id="busy">
+      <img class="m-preview" id="prev" alt="Photo being traced">
+      <div class="m-busy"><span id="spin"></span><span id="busymsg">Sending</span></div>
+    </section>
+    <section id="done" class="m-done"></section>
+  </main>
+  <script type="module" src="/static/js/phone.js"></script>
+</body>
+</html>

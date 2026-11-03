@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nishaan</title>
+  <link rel="preload" href="/static/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <header class="mast">
+    <a class="brand" href="#/overview" aria-label="Nishaan home"><span id="brandmark"></span><b>Nishaan</b></a>
+    <nav class="tabs" aria-label="Sections">
+      <a class="tab" href="#/overview" data-route="overview">Overview</a>
+      <a class="tab" href="#/issue" data-route="issue">Issue</a>
+      <a class="tab" href="#/trace" data-route="trace">Trace<span class="count hidden" id="tracecount"></span></a>
+      <a class="tab" href="#/compare" data-route="compare">Compare</a>
+      <a class="tab" href="#/ledger" data-route="ledger">Ledger</a>
+    </nav>
+    <div class="mast-right">
+      <span class="live" id="live"><i></i>Live</span>
+      <button class="btn quiet" id="phonebtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+        Phone
+      </button>
+    </div>
+  </header>
+  <div class="pop hidden" id="phonepop" role="dialog" aria-label="Send from a phone">
+    <img id="phoneqr" alt="QR code that opens the phone capture page">
+    <div class="url" id="phoneurl"></div>
+  </div>
+
+  <main class="stack">
+    <div class="sheet">
+      <section class="screen" id="s-overview"></section>
+      <section class="screen" id="s-issue"></section>
+      <section class="screen" id="s-trace"></section>
+      <section class="screen" id="s-compare"></section>
+      <section class="screen" id="s-ledger"></section>
+    </div>
+  </main>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
